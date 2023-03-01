@@ -18,31 +18,48 @@ export default class Slide {
   updatePosition(clientX) {
     // Calcula o valor inicial menos o movimento
     // e aumenta a velocidade
-    this.dist.movement = (this.dist.startX - clientX) * 1.5;
+    this.dist.movement = (this.dist.startX - clientX) * 1.3;
     return this.dist.finalPosition - this.dist.movement;
   }
 
   onStart(event) {
-    event.preventDefault();
-    // Salva a posição inicial no momento do clique
-    this.dist.startX = event.clientX;
-    this.wrapper.addEventListener("mousemove", this.onMove);
+    let movetype;
+    if (event.type === "mousedown") {
+      event.preventDefault();
+      // Salva a posição inicial no momento do clique
+      this.dist.startX = event.clientX;
+      movetype = "mousemove";
+    } else {
+      // Salva a posição inicial no momento do TOUCH
+      this.dist.startX = event.changedTouches[0].clientX;
+      movetype = "touchmove";
+    }
+
+    this.wrapper.addEventListener(movetype, this.onMove);
   }
 
   onMove(event) {
-    const finalPosition = this.updatePosition(event.clientX);
+    // Verifica qual evento deve ser pego a posição atual
+    const pointerPosition =
+      event.type === "mousemove"
+        ? event.clientX
+        : event.changedTouches[0].clientX;
+    const finalPosition = this.updatePosition(pointerPosition);
     this.moveSlide(finalPosition);
   }
 
   onEnd(event) {
-    this.wrapper.removeEventListener("mousemove", this.onMove);
+    const moveType = event.type === "mouseup" ? "mousemove" : "touchmove";
+    this.wrapper.removeEventListener(moveType, this.onMove);
     // Salva a posição final no momento que solta o clique
     this.dist.finalPosition = this.dist.movePostition;
   }
 
   addSlideEvents() {
     this.wrapper.addEventListener("mousedown", this.onStart);
+    this.wrapper.addEventListener("touchstart", this.onStart);
     this.wrapper.addEventListener("mouseup", this.onEnd);
+    this.wrapper.addEventListener("touchend", this.onEnd);
   }
 
   // Referencia o objeto como this, na função de callback
