@@ -19,6 +19,10 @@ img {
   /* valores movimento do slide feito pelo JS */
   /* transform: translate3d(0, 0, 0); */
 
+  &:hover {
+    will-change: transform;
+  }
+
   &-wrapper {
     overflow: hidden;
   }
@@ -28,5 +32,16 @@ img {
     width: 80vw;
     max-width: 800px;
     margin: 0 20px;
+    opacity: 0.8;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transform: scale(0.8);
+    transition: 0.3s;
+
+    &.active {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }

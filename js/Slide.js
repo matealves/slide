@@ -1,7 +1,10 @@
+import debounce from "./debounce.js";
+
 export default class Slide {
   constructor(slide, wrapper) {
     this.slide = document.querySelector(slide);
     this.wrapper = document.querySelector(wrapper);
+    this.activeClass = "active";
     this.dist = {
       finalPosition: 0,
       startX: 0,
@@ -80,13 +83,6 @@ export default class Slide {
     this.wrapper.addEventListener("touchend", this.onEnd);
   }
 
-  // Referencia o objeto como this, na função de callback
-  bindEvents(...methods) {
-    methods.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
   // ######### SLIDES CONFIG
 
   slidePosition(slide) {
@@ -110,8 +106,6 @@ export default class Slide {
       active: index,
       next: index === last ? undefined : index + 1,
     };
-
-    console.log(this.index);
   }
 
   // Definir slide atual
@@ -120,6 +114,14 @@ export default class Slide {
     this.moveSlide(activeSlide.position);
     this.slidesIndexNav(index);
     this.dist.finalPosition = activeSlide.position;
+    this.changeActiveClass();
+  }
+
+  changeActiveClass() {
+    this.slideArray.forEach((item) => {
+      item.element.classList.remove(this.activeClass);
+    });
+    this.slideArray[this.index.active].element.classList.add(this.activeClass);
   }
 
   activePrevSlide() {
@@ -134,11 +136,33 @@ export default class Slide {
     }
   }
 
+  // Adapta slides com tamanho da tela
+  onResize() {
+    setTimeout(() => {
+      this.slidesConfig();
+      this.changeSlide(this.index.active);
+    }, 700);
+  }
+
+  addResizeEvent() {
+    window.addEventListener("resize", this.onResize);
+  }
+
+  // Referencia o objeto como this, na função de callback
+  bindEvents(...methods) {
+    methods.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+
+    this.onResize = debounce(this.onResize.bind(this), 200);
+  }
+
   init() {
     this.bindEvents("onStart", "onMove", "onEnd");
     this.transition(true);
     this.addSlideEvents();
     this.slidesConfig();
+    this.addResizeEvent();
     return this;
   }
 }
