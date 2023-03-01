@@ -69,9 +69,42 @@ export default class Slide {
     });
   }
 
+  // ######### SLIDES CONFIG
+
+  slidePosition(slide) {
+    // Calcula valor para ficar no centro da tela
+    const margin = (this.wrapper.offsetWidth - slide.offsetWidth) / 2;
+    return -(slide.offsetLeft - margin);
+  }
+
+  slidesConfig() {
+    this.slideArray = [...this.slide.children].map((element) => {
+      const position = this.slidePosition(element);
+      return { position, element };
+    });
+  }
+
+  // Identifica primeiro e último slide
+  slidesIndexNav(index) {
+    const last = this.slideArray.length - 1;
+    this.index = {
+      prev: index ? index - 1 : undefined,
+      active: index,
+      next: index === last ? undefined : index + 1,
+    };
+  }
+
+  changeSlide(index) {
+    const activeSlide = this.slideArray[index];
+    this.moveSlide(this.slideArray[index].position);
+    this.slidesIndexNav(index);
+    this.finalPosition = activeSlide.position;
+  }
+
   init() {
     this.bindEvents("onStart", "onMove", "onEnd");
     this.addSlideEvents();
+    this.slidesConfig();
     return this;
   }
 }
