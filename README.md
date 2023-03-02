@@ -19,17 +19,15 @@
 <h1>Visão geral</h1>
 Plugin Slide (carrossel de imagens) feito em JavaScript, utilizando  <strong>Orientação a Objetos</strong>. Fácil inicialização, é possível utilizar um custom-controls com as imagens ou as bolinhas que exibem qual slide é o atual. Possui animações clean e <strong>acessibilidade ao touchscreen</strong>.
 <br><br>
-Como importar o plugin?
+Como utilizar?
 <br>
 
-`import { SlideNav } from "https://matealves.github.io/slide/js/Slide.js";`<br>
-
+`import { SlideNav } from "./Slide.js";`<br>
 `const slide = new SlideNav(".slide", ".slide-wrapper");`<br>
-`slide.init();`<br>
-`slide.addArrow(".prev", ".next");`<br><br>
-Para alterar entre custom-controls e as bolinhas, basta apenas <strong>Passar</strong> algum elemento como argumento no addControl, ou <strong>Não passar</strong> nenhum argumento:<br><br>
-`slide.addControl(".custom-controls");`<br><br>
-ou <br><br>
+`slide.init();`<br><br>
+Para usar custom-controls ou as bolinhas, basta apenas <strong>Passar</strong> algum elemento como argumento no addControl, ou <strong>Não passar</strong> nenhum argumento para mostrar as bolinhas:<br><br>
+`slide.addControl(".custom-controls");`<br>
+ou <br>
 `slide.addControl();`<br>
 </div>
 <br>

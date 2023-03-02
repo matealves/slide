@@ -119,9 +119,9 @@ export class Slide {
     this.wrapper.dispatchEvent(this.changeEvent);
 
     // Aguarda inicializar para encontrar os botões no DOM
-    setTimeout(() => {
-      this.disabledButton();
-    }, 10);
+    // setTimeout(() => {
+    //   this.disabledButton();
+    // }, 10);
   }
 
   changeActiveClass() {
