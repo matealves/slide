@@ -117,6 +117,11 @@ export class Slide {
     this.dist.finalPosition = activeSlide.position;
     this.changeActiveClass();
     this.wrapper.dispatchEvent(this.changeEvent);
+
+    // Aguarda inicializar para encontrar os botões no DOM
+    setTimeout(() => {
+      this.disabledButton();
+    }, 10);
   }
 
   changeActiveClass() {
@@ -133,7 +138,7 @@ export class Slide {
   }
 
   activeNextSlide() {
-    if (this.index.next) {
+    if (this.index.next !== undefined) {
       this.changeSlide(this.index.next);
     }
   }
@@ -228,10 +233,28 @@ export class SlideNav extends Slide {
     this.control =
       document.querySelector(customControl) || this.createControl();
 
+    if (!customControl) {
+      document.querySelector(".custom-controls").classList.add("hide");
+    }
+
     this.controlArray = [...this.control.children];
 
     this.activeControlItem();
     this.controlArray.forEach(this.eventControl);
+  }
+
+  disabledButton() {
+    [this.prevElement, this.nextElement].forEach((item) => {
+      item.disabled = false;
+    });
+
+    if (this.index.prev === undefined) {
+      this.prevElement.disabled = true;
+    }
+
+    if (this.index.next === undefined) {
+      this.nextElement.disabled = true;
+    }
   }
 
   bindControlEvents(...methods) {
