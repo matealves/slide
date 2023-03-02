@@ -28,8 +28,8 @@ Como importar o plugin?
 `slide.init();`<br>
 `slide.addArrow(".prev", ".next");`<br><br>
 Para alterar entre custom-controls e as bolinhas, basta apenas <strong>Passar</strong> algum elemento como argumento no addControl, ou <strong>Não passar</strong> nenhum argumento:<br><br>
-`slide.addControl(".custom-controls");`<br>
-ou <br>
+`slide.addControl(".custom-controls");`<br><br>
+ou <br><br>
 `slide.addControl();`<br>
 </div>
 <br>
