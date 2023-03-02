@@ -45,3 +45,30 @@ img {
     }
   }
 }
+
+[data-control="slide"] {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  li {
+    &.active a {
+      background: #555;
+    }
+
+    a {
+      display: block;
+      width: 12px;
+      height: 12px;
+      background: #e7e7e7;
+      border-radius: 50%;
+      overflow: hidden;
+      text-indent: -999px;
+      margin: 5px;
+
+      &:hover {
+        background: #555;
+      }
+    }
+  }
+}
