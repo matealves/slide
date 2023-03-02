@@ -5,4 +5,4 @@ slide.init();
 
 slide.addArrow(".prev", ".next");
 
-slide.addControl();
+slide.addControl(".custom-controls");
