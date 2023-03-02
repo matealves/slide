@@ -22,12 +22,12 @@ Plugin Slide (carrossel de imagens) feito em JavaScript, utilizando  <strong>Ori
 Como importar o plugin?
 <br>
 
-`import { SlideNav } from "https://matealves.github.io/slide/js/Slide.js"`;<br>
+`import { SlideNav } from "https://matealves.github.io/slide/js/Slide.js";`<br>
 
 `const slide = new SlideNav(".slide", ".slide-wrapper");`<br>
 `slide.init();`<br>
 `slide.addArrow(".prev", ".next");`<br><br>
-Para alterar entre custom-controls e as bolinhas, basta apenas <strong>Passar</strong> algum elemento como argumento no addControl, ou <strong>Não passar</strong> nenhum argumento:<br>
+Para alterar entre custom-controls e as bolinhas, basta apenas <strong>Passar</strong> algum elemento como argumento no addControl, ou <strong>Não passar</strong> nenhum argumento:<br><br>
 `slide.addControl(".custom-controls");`<br>
 ou <br>
 `slide.addControl();`<br>
